@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Remove Employee</h1>
+<div mat-dialog-content>
+    <div *ngIf="removeEmployee; else elseBlock">
+        <span>Are you sure you want to remove {{employee?.firstName}} {{employee?.lastName}} from the system?</span>
+    </div>
+    <ng-template #elseBlock>
+        <span>Are you sure you want to remove {{employee?.firstName}} {{employee?.lastName}} from direct reporting?</span>
+    </ng-template><br>
+    <span>This Action can not be undone</span>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="employee" cdkFocusInitial>Yes</button>
+</div>

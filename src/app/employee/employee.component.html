@@ -1,12 +1,49 @@
-<mat-card class="employee">
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{employee.lastName}}, {{employee.firstName}}</mat-card-title>
-    <mat-card-subtitle>{{employee.id}}</mat-card-subtitle>
+    <mat-card-subtitle>Employee Id: {{employee.id}}</mat-card-subtitle>
   </mat-card-header>
+  <mat-divider></mat-divider>
   <mat-card-content>
     <dl>
-      <dt>Job Title</dt>
-      <dd>{{employee.position}}</dd>
+      <h4>Employee Information:</h4>
+      <dt><strong>Job Title:</strong> {{employee.position}}</dt>
+      <div *ngIf="employee.compensation">
+        <dt><strong>Compensation:</strong> ${{employee.compensation}}</dt>
+      </div>
     </dl>
+    <div *ngIf="directReports">
+      <mat-accordion multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Direct Reports: {{directReports}}</mat-panel-title>
+            <mat-panel-description>
+              Edit Direct Report Content
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let emp of directReportEmployees">
+              <div>{{emp.lastName}}, {{emp.firstName}}</div>
+              <mat-divider></mat-divider>
+              <div class="button-actions">
+                <button mat-icon-button color="primary" aria-label="edit" (click)="openUpdateModal(emp, false)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" aria-label="delete" (click)="openDeleteModal(emp)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" aria-label="delete" (click)="openDeleteModal(employee, true)">
+      Remove Employee
+    </button>
+  </mat-card-actions>
 </mat-card>
+
+

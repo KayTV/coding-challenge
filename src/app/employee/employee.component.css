@@ -1,0 +1,29 @@
+.mat-card-header {
+    background-color: rgb(148, 203, 255) !important;
+    padding:5px !important;
+}
+
+.mat-card {
+    padding:0 !important;
+}
+
+.mat-card-content {
+    padding:15px !important;
+}
+
+.mat-expansion-panel-header {
+    color: lightgray !important;
+}
+
+.edit-buttons {
+    text-align: right;
+}
+
+.mat-card-actions {
+    padding-left: 20px !important;
+    padding-bottom: 10px !important;
+}
+
+.button-actions {
+    padding-left: 5%;
+}

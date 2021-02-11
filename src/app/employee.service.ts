@@ -12,10 +12,9 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Employee> {
+  getAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.url)
       .pipe(
-        flatMap(emps => from(emps)),
         catchError(this.handleError)
       );
   }
