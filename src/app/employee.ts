@@ -5,4 +5,5 @@ export class Employee {
   position: string;
   compensation?: number;
   directReports?: Array<number>;
+  image?: string;
 }

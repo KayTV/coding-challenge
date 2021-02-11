@@ -59,7 +59,7 @@ export class EmployeeComponent {
         } else {
           const empIndex = this.directReportEmployees.indexOf(this.directReportEmployees.find(employee => employee.id === result.id));
           // removing element from just the direct reports array
-          if (empIndex) {
+          if (empIndex || empIndex === 0) {
               this.directReportEmployees.splice(empIndex, 1);
               this.directReports = this.directReportEmployees.length;
               this.directReportEmployees.forEach(emp => {

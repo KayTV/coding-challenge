@@ -1,5 +1,6 @@
 <mat-card>
   <mat-card-header>
+    <div mat-card-avatar><img src="{{employee.image}}"></div>
     <mat-card-title>{{employee.lastName}}, {{employee.firstName}}</mat-card-title>
     <mat-card-subtitle>Employee Id: {{employee.id}}</mat-card-subtitle>
   </mat-card-header>
@@ -7,12 +8,12 @@
   <mat-card-content>
     <dl>
       <h4>Employee Information:</h4>
-      <dt><strong>Job Title:</strong> {{employee.position}}</dt>
+      <dt><strong>Job Title:</strong> {{employee.position}}</dt><br>
       <div *ngIf="employee.compensation">
-        <dt><strong>Compensation:</strong> ${{employee.compensation}}</dt>
+        <dt><strong>Compensation:</strong> {{employee.compensation | currency}}</dt>
       </div>
     </dl>
-    <div *ngIf="directReports">
+    <div *ngIf="directReports; else elseBlock">
       <mat-accordion multi>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -38,6 +39,9 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
+    <ng-template #elseBlock><br>
+      No Direct Reports
+    </ng-template>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" aria-label="delete" (click)="openDeleteModal(employee, true)">

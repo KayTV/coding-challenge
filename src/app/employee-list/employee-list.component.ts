@@ -65,7 +65,7 @@ export class EmployeeListComponent implements OnInit {
 
   openAlertMessage(emp: Employee, action: string) {
     this._alertMessage.open(emp.firstName + ' ' + emp.lastName + ' ' + action, 'X', {
-      duration: 2000,
+      duration: 2500,
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

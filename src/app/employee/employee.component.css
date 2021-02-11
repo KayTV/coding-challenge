@@ -27,3 +27,9 @@
 .button-actions {
     padding-left: 5%;
 }
+
+.mat-card-avatar img {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 30px;
+}
