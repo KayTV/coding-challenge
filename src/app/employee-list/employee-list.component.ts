@@ -36,6 +36,10 @@ export class EmployeeListComponent implements OnInit {
         this.employeeService.getAll().subscribe(emps => {
           this.employees = emps;
         })
+      }, (error) => {
+        if (error) {
+          this.handleError(error);
+        }
       });
     }
   }
@@ -55,6 +59,10 @@ export class EmployeeListComponent implements OnInit {
                   emp.directReports.splice(index, 1);
                 }
               })
+            }
+          }, (error) => {
+            if (error) {
+              this.handleError(error);
             }
           });
           this.employees = emps;

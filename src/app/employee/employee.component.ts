@@ -43,6 +43,10 @@ export class EmployeeComponent {
         if (emp) {
           this.directReportEmployees.push(emp);
         }
+      }, (error) => {
+        if (error) {
+          this.handleError(error);
+        }
       });
     }) 
   }
@@ -68,6 +72,10 @@ export class EmployeeComponent {
           }
         } 
       }  
+    }, (error) => {
+      if (error) {
+        this.handleError(error);
+      }
     });
   }
 
@@ -78,6 +86,16 @@ export class EmployeeComponent {
       if (result) {
         this.employeeUpdated.emit(result);
       }  
+    }, (error) => {
+      if (error) {
+        this.handleError(error);
+      }
     });
   }
+
+  private handleError(e: Error | any): string {
+    console.error(e);
+    return this.errorMessage = e.message || 'An error has occurred';
+  }
+
 }
