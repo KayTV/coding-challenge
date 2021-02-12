@@ -5,6 +5,8 @@ import {EmployeeListComponent} from './employee-list.component';
 import {EmployeeService} from '../employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({selector: 'app-employee', template: ''})
 class EmployeeComponent {
@@ -25,11 +27,13 @@ const matSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
   let fixture: ComponentFixture<EmployeeListComponent>;
+  let service: EmployeeService;
   
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        OverlayModule
+        OverlayModule,
+        BrowserAnimationsModule
       ],
       declarations: [
         EmployeeListComponent,
@@ -47,10 +51,53 @@ describe('EmployeeListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EmployeeListComponent);
     component = fixture.componentInstance;
+    service = TestBed.inject(EmployeeService);
+    let employee = {
+      id: 1,
+      firstName: 'first',
+      lastName: 'last',
+      position: 'jobTitle'
+    };
+    employeeServiceSpy.getAll.and.returnValue(
+      of([employee])
+    );
+    employeeServiceSpy.save.and.returnValue(
+      of(employee)
+    );
+    employeeServiceSpy.remove.and.returnValue(
+      of(null)
+    )
+    service = new EmployeeService(employeeServiceSpy);
   });
 
   it('should create the component', async(() => {
     expect(component).toBeTruthy();
+  }));
+
+  it('should call employee update function', async(() => {
+    let employee = {
+      id: 1,
+      firstName: 'first',
+      lastName: 'last',
+      position: 'jobTitle'
+    };
+    const spy = spyOn(component, 'employeeUpdated');
+    component.employeeUpdated(employee);
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(employee);
+  }));
+
+  it('should call employee delete function', async(() => {
+    let employee = {
+      id: 1,
+      firstName: 'first',
+      lastName: 'last',
+      position: 'jobTitle'
+    };
+    const spy = spyOn(component, 'employeeDeleted');
+    component.employeeDeleted(employee);
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(employee);
   }));
   
 });
