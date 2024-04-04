@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddEmployeeModalComponent } from '../add-employee/add-employee-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({selector: 'app-employee', template: ''})
 class EmployeeComponent {
@@ -23,6 +25,7 @@ class GridTileComponent {
 
 const employeeServiceSpy = jasmine.createSpyObj('EmployeeService', ['getAll', 'get', 'save', 'remove']);
 const matSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
+const matDialog = jasmine.createSpyObj('MatDialog', ['open']);
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -39,11 +42,13 @@ describe('EmployeeListComponent', () => {
         EmployeeListComponent,
         EmployeeComponent,
         GridListComponent,
-        GridTileComponent
+        GridTileComponent,
+        AddEmployeeModalComponent
       ],
       providers: [
         {provide: EmployeeService, useValue: employeeServiceSpy},
-        {provide: MatSnackBar, useValue: matSnackBar}
+        {provide: MatSnackBar, useValue: matSnackBar},
+        {provide: MatDialog, useValue: matDialog}
       ],
     }).compileComponents();
   }));

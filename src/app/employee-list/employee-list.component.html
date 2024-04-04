@@ -1,3 +1,6 @@
+<div class="add-employee">
+  <button mat-stroked-button color="primary" (click)="addEmployee()">Add Employee</button>
+</div>
 <div class="employee-card" *ngFor="let emp of employees">
   <app-employee [employee]="emp" 
     (employeeUpdated)="employeeUpdated($event)" 

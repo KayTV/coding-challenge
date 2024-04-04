@@ -35,6 +35,20 @@ export class EmployeeService {
       .pipe(catchError(this.handleError));
   }
 
+  removeDirectReport(employees: Employee[], employee: Employee): void {
+    // FIX
+    // employees.forEach(emp => {
+    //   if (emp.directReports && emp.directReports.length > 0) {
+    //     emp.directReports.forEach(dirEmpId => {
+    //       if (dirEmpId === id) {
+    //         const index = emp.directReports.indexOf(dirEmpId);
+    //         emp.directReports.splice(index, 1);
+    //       }
+    //     })
+    //   }
+    // })       
+  }
+
   private post(emp: Employee): Observable<Employee> {
     return this.http.post<Employee>(this.url, emp);
   }
