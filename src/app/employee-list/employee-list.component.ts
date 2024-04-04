@@ -33,7 +33,24 @@ export class EmployeeListComponent implements OnInit {
       .pipe(
         map(emps => this.employees = emps),
         catchError(this.handleError.bind(this))
-      ).subscribe();
+      ).subscribe(() => this.getDirectReports());
+  }
+
+  getDirectReports(): void {
+    // take the index numbers in direct reports array and create an array of employee info
+    this.employees.forEach(employee => {
+      const reportsArray: Employee[] = [];
+      if (employee && employee.directReports) {
+        employee.directReports.forEach(directReport => {
+          const emp = this.employees.find(employee => employee.id === directReport);
+          if (emp) {
+            reportsArray.push(emp);
+          }
+          
+        });
+        employee.directReportEmployees = reportsArray; 
+      }
+    });
   }
 
   addEmployee() {
@@ -74,28 +91,15 @@ export class EmployeeListComponent implements OnInit {
 
   employeeDeleted(employee: Employee): void {
     if (employee) {
-      let id: number = employee.id;
       this.employeeService.remove(employee).subscribe(never => {
         const deleteAction: string = 'has been removed from the system' ;
         this.openAlertMessage(employee, deleteAction);
-        // FIX
-        this.employeeService.getAll().subscribe(emps => {
-          emps.forEach(emp => {
-            if (emp.directReports && emp.directReports.length > 0) {
-              emp.directReports.forEach(dirEmpId => {
-                if (dirEmpId === id) {
-                  const index = emp.directReports.indexOf(dirEmpId);
-                  emp.directReports.splice(index, 1);
-                }
-              })
-            }
-          }, (error) => {
-            if (error) {
-              this.handleError(error);
-            }
-          });
-          this.employees = emps;
-        })
+        this.employeeService.removeDirectReport(this.employees, employee);
+        this.getEmployees();    
+      }, (error) => {
+        if (error) {
+          this.handleError(error);
+        }
       });
     }
   }

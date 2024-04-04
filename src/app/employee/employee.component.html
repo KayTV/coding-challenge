@@ -13,17 +13,17 @@
         <dt><strong>Compensation:</strong> {{employee.compensation | currency}}</dt>
       </div>
     </dl>
-    <div *ngIf="directReports; else elseBlock">
+    <div *ngIf="employee.directReportEmployees?.length > 0; else elseBlock">
       <mat-accordion multi>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Direct Reports: {{directReports}}</mat-panel-title>
+            <mat-panel-title>Direct Reports: {{employee.directReportEmployees.length}}</mat-panel-title>
             <mat-panel-description>
               Edit Direct Report Content
             </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-list>
-            <mat-list-item *ngFor="let emp of directReportEmployees">
+            <mat-list-item *ngFor="let emp of employee.directReportEmployees">
               <div>{{emp.lastName}}, {{emp.firstName}}</div>
               <mat-divider></mat-divider>
               <div class="button-actions">
