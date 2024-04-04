@@ -72,7 +72,7 @@ describe('EmployeeComponent', () => {
       lastName: 'last',
       position: 'jobTitle'
     };
-    component.directReportEmployees = [
+    component.employee.directReportEmployees = [
       {
         id: 1,
         firstName: 'first',
@@ -99,11 +99,11 @@ describe('EmployeeComponent', () => {
   }));
 
   it('should have have direct employees', async(() => {
-    component.directReports = 2;
+    component.employee.directReportEmployees.length = 2;
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-accordion')).toBeTruthy();
-    expect(component.directReportEmployees.length).toBeGreaterThan(0);
+    expect(component.employee.directReportEmployees.length).toBeGreaterThan(0);
   }));
 
 });

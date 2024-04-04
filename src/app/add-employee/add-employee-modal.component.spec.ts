@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UpdateModalComponent } from './update-modal.component';
+import { AddEmployeeModalComponent } from './add-employee-modal.component';
 import { By } from '@angular/platform-browser';
 
 @Component({selector: 'app-mat-dialog-ref', template: ''})
@@ -11,14 +11,14 @@ class DialogRef {
 const matDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
 
 
-describe('UpdateModalComponent', () => {
-    let component: UpdateModalComponent;
-    let fixture: ComponentFixture<UpdateModalComponent>;
+describe('AddEmployeeModalComponent', () => {
+    let component: AddEmployeeModalComponent;
+    let fixture: ComponentFixture<AddEmployeeModalComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
         declarations: [
-            UpdateModalComponent,
+            AddEmployeeModalComponent,
             DialogRef
         ],
         providers: [{provide: MatDialogRef, useValue: matDialogRef}]
@@ -26,17 +26,17 @@ describe('UpdateModalComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UpdateModalComponent);
+        fixture = TestBed.createComponent(AddEmployeeModalComponent);
         component = fixture.componentInstance;
         component.employee = {
-          id: 1,
-          firstName: 'first',
-          lastName: 'last',
-          position: 'jobTitle'
+          id: null,
+          firstName: '',
+          lastName: '',
+          position: ''
         };
     });
 
-    it('should create the update modal component', async(() => {
+    it('should create the add employee modal component', async(() => {
         expect(component).toBeTruthy();
     }));
 
@@ -49,32 +49,54 @@ describe('UpdateModalComponent', () => {
     it('should render title in a h1 tag', async(() => {
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1').textContent).toContain('Update Compensation');
+        expect(compiled.querySelector('h1').textContent).toContain('Add New Employee');
     }));
 
-    it('should has first name as disabled', async(() => {
+    it('should input value in first name', async(() => {
         fixture.detectChanges();
         const compiled = fixture.debugElement;
         fixture.whenStable().then(() => {
             let input = compiled.query(By.css('#firstName'));
             let el = input.nativeElement;
-            el.value = component.employee.firstName;
 
-            expect(el.value).toBe('first');
-            expect(el.disabled).toBeTruthy();
+            expect(el.value).toBe('');
+
+            el.value = 'Kaylyn';
+            el.dispatchEvent(new Event('input'));
+
+            expect(el.value).toBe('Kaylyn');
         })
     }));
 
-    it('should has last name as disabled', async(() => {
+    it('should input value in last name', async(() => {
         fixture.detectChanges();
         const compiled = fixture.debugElement;
         fixture.whenStable().then(() => {
             let input = compiled.query(By.css('#lastName'));
             let el = input.nativeElement;
-            el.value = component.employee.lastName;
 
-            expect(el.value).toBe('last');
-            expect(el.disabled).toBeTruthy();
+            expect(el.value).toBe('');
+
+            el.value = 'Van';
+            el.dispatchEvent(new Event('input'));
+
+            expect(el.value).toBe('Van');
+        })
+    }));
+
+    it('should input value in position', async(() => {
+        fixture.detectChanges();
+        const compiled = fixture.debugElement;
+        fixture.whenStable().then(() => {
+            let input = compiled.query(By.css('#position'));
+            let el = input.nativeElement;
+
+            expect(el.value).toBe('');
+
+            el.value = 'Developer';
+            el.dispatchEvent(new Event('input'));
+
+            expect(el.value).toBe('Developer');
         })
     }));
 
@@ -93,5 +115,4 @@ describe('UpdateModalComponent', () => {
             expect(el.value).toBe('120000');
         })
     }));
-    
 });

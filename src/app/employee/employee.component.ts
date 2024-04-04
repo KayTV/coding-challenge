@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
@@ -13,42 +13,14 @@ import { UpdateModalComponent } from '../update-modal/update-modal.component';
   providers: [MatDialog]
 })
 export class EmployeeComponent {
-  @Input() set employee(employee: Employee) {
-    this._employee = employee;
-    if (employee && employee.directReports) {
-      this.directReports = employee.directReports.length;
-      this.getDirectEmployees(employee);
-    }
-  }
-  get employee() {
-    return this._employee;
-  }
+  @Input() employee: Employee;
+  @Input() employeeList: Employee[];
   @Output() employeeUpdated: EventEmitter<Employee> = new EventEmitter<Employee>();
   @Output() employeeDeleted: EventEmitter<Employee> = new EventEmitter<Employee>();
-  employeeList: Employee[];
-  _employee: Employee;
-  directReports: number;
-  directReportEmployees: Employee[] = [];
+  
   errorMessage: string;
 
-  constructor(public dialog: MatDialog,
-    private employeeService: EmployeeService) {
-  }
-
-  getDirectEmployees(employee: Employee) {
-    this.employeeService.getAll().subscribe(list => {
-      this.employeeList = list;
-      employee.directReports.forEach(directReport => {
-        const emp = this.employeeList.find(employee => employee.id === directReport);
-        if (emp) {
-          this.directReportEmployees.push(emp);
-        }
-      }, (error) => {
-        if (error) {
-          this.handleError(error);
-        }
-      });
-    }) 
+  constructor(public dialog: MatDialog) {
   }
 
   openDeleteModal(employee: Employee, removeEmployee: boolean) {
@@ -61,14 +33,10 @@ export class EmployeeComponent {
           // remove employee from system
           this.employeeDeleted.emit(result);
         } else {
-          const empIndex = this.directReportEmployees.indexOf(this.directReportEmployees.find(employee => employee.id === result.id));
+          const empIndex = this.employee.directReportEmployees.indexOf(this.employee.directReportEmployees.find(employee => employee.id === result.id));
           // removing element from just the direct reports array
           if (empIndex || empIndex === 0) {
-              this.directReportEmployees.splice(empIndex, 1);
-              this.directReports = this.directReportEmployees.length;
-              this.directReportEmployees.forEach(emp => {
-                this.employee.directReports.push(emp.id);
-              });
+              this.employee.directReportEmployees.splice(empIndex, 1);
           }
         } 
       }  

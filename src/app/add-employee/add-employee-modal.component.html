@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Add New Employee</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input id="firstName" matInput [(ngModel)]="employee.firstName" required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input id="lastName" matInput [(ngModel)]="employee.lastName" required>
+    </mat-form-field><br>
+    <mat-form-field>
+        <mat-label>Position:</mat-label>
+        <input id="position" matInput [(ngModel)]="employee.position" required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Compensation:</mat-label>
+        <input id="compensation" matInput type="number" [(ngModel)]="employee.compensation" required>
+    </mat-form-field>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="employee" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

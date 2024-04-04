@@ -1,5 +1,10 @@
+<div class="add-employee">
+  <button mat-stroked-button color="primary" (click)="addEmployee()">Add Employee</button>
+</div>
 <div class="employee-card" *ngFor="let emp of employees">
   <app-employee [employee]="emp" 
+    [employeeList]="employees"
     (employeeUpdated)="employeeUpdated($event)" 
-    (employeeDeleted)="employeeDeleted($event)"></app-employee>
+    (employeeDeleted)="employeeDeleted($event)"
+    (directReportDeleted)="directReportDeleted($event)"></app-employee>
 </div>

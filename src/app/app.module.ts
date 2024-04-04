@@ -24,6 +24,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { AddEmployeeModalComponent } from './add-employee/add-employee-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
     EmployeeComponent,
     EmployeeListComponent,
     UpdateModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    AddEmployeeModalComponent
   ],
   imports: [
     BrowserModule,

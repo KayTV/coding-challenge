@@ -3,15 +3,15 @@
   <p>{{employee?.firstName}} {{employee?.lastName}}'s Compensation</p>
     <mat-form-field>
         <mat-label>First Name:</mat-label>
-        <input matInput disabled [(ngModel)]="employee.firstName">
+        <input id="firstName" matInput disabled [(ngModel)]="employee.firstName">
     </mat-form-field><br>
     <mat-form-field>
         <mat-label>Last Name:</mat-label>
-        <input matInput disabled [(ngModel)]="employee.lastName">
+        <input id="lastName" matInput disabled [(ngModel)]="employee.lastName">
     </mat-form-field><br>
     <mat-form-field>
         <mat-label>Compensation:</mat-label>
-        <input matInput type="number" [(ngModel)]="employee.compensation">
+        <input id="compensation" matInput type="number" [(ngModel)]="employee.compensation">
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
